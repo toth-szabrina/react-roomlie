@@ -1,30 +1,44 @@
 import { useState } from "react";
+import type { Table } from "./RoomManager";
 
+type TableType = "snooker" | "airhockey" | "foosball";
 
-function NewTable({onAdd}){
-  const [type, setType] = useState("biliard");
+type NewTableProps = {
+  onAdd: (table: Table) => void;
+};
 
-  return(
+function NewTable({ onAdd }: NewTableProps) {
+  const [type, setType] = useState<TableType>("snooker");
+
+  return (
     <div>
-      <select onChange={(e) => setType(e.target.value)}>
-        <option value="biliard">Billiárd</option>
-        <option value="csocso">Csocsó</option>
+      <select
+        value={type}
+        onChange={(e) => setType(e.target.value as TableType)}
+      >
+        <option value="snooker">Snooker</option>
+        <option value="foosball">Csocsó</option>
         <option value="airhockey">Léghoki</option>
       </select>
 
-      <button onClick={() =>
-        onAdd({
-          id: Date.now(),
-          type,
-          x:0,
-          y:0,
-          condition:5,
-        })
-      }>
+      <button
+        onClick={() =>
+          onAdd({
+            id: Date.now(),
+            type,
+            x: 60,
+            y: 60,
+            status: 5,
+            color: "white",
+            isLocked: false,
+            isInvalid: false,
+          })
+        }
+      >
         Hozzáadás
       </button>
     </div>
   );
 }
 
-export default NewTable
+export default NewTable;

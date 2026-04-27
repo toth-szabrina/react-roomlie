@@ -1,15 +1,26 @@
+import Room from "./Room";
+import type { Table } from "./RoomManager";
 
-function Tables({tables, onSelect}){
+type TablesProps = {
+  tables: Table[];
+  roomWidth: number;
+  roomHeight: number;
+  onSelect: (table: Table) => void;
+};
 
-  return(
- <div>
-      {tables.map((t) => (
-        <div key={t.id} onClick={() => onSelect(t)}>
-          {t.type} ({t.x}, {t.y})
-        </div>
-      ))}
-    </div>
+function Tables({ tables, roomWidth, roomHeight, onSelect }: TablesProps) {
+  return (
+    <section>
+      <h2>Terem</h2>
+
+      <Room
+        width={roomWidth}
+        height={roomHeight}
+        tables={tables}
+        onSelect={onSelect}
+      />
+    </section>
   );
 }
 
-export default Tables
+export default Tables;
