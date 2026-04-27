@@ -1,5 +1,6 @@
 import { TABLE_TYPES } from "./typeHelper/tableTypes";
 import type { Table } from "./RoomManager";
+import { TABLE_CATEGORIES } from "./typeHelper/tableCategories";
 
 type TableViewProps = {
   table: Table;
@@ -9,6 +10,15 @@ type TableViewProps = {
 
 function TableView({ table, onClick, onMouseDown }: TableViewProps) {
   const data = TABLE_TYPES[table.type];
+  const category = TABLE_CATEGORIES[table.category];
+
+  const borderWidth = table.isInvalid ? 3 : category.border;
+  const borderColor = table.isInvalid ? "red" : "black";
+
+  const background =
+    category.pattern === "dots"
+      ? `radial-gradient(circle, black 1px, transparent 1px), ${table.color}`
+      : table.color;
 
   return (
     <div
@@ -20,8 +30,9 @@ function TableView({ table, onClick, onMouseDown }: TableViewProps) {
         top: table.y,
         width: data.width,
         height: data.height,
-        border: table.isInvalid ? "3px solid red" : "2px solid black",
-        backgroundColor: table.color,
+        border: `${borderWidth}px solid ${borderColor}`,
+        background,
+        backgroundSize: category.pattern === "dots" ? "10px 10px" : undefined,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

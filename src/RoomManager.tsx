@@ -6,6 +6,8 @@ import { TABLE_TYPES } from "./typeHelper/tableTypes";
 
 export type TableType = "snooker" | "airhockey" | "foosball";
 
+export type Categories = "race" | "normal" | "kids";
+
 export type Table = {
   id: number;
   type: TableType;
@@ -15,6 +17,7 @@ export type Table = {
   status: number;
   isLocked: boolean;
   isInvalid: boolean;
+  category: Categories;
 };
 
 type Rectangle = {
@@ -159,6 +162,14 @@ function RoomManager() {
     setSelectedTable(null);
   }
 
+  function handleUpdate(tableToUpdate: Table){
+    const updatedTables = tables.map((t) => t.id === tableToUpdate.id ? tableToUpdate : t);
+
+    setTables(markInvalidTables(updatedTables));
+    setSelectedTable(tableToUpdate);
+
+  }
+
   return (
     <div>
       <h1>Teremkezelő</h1>
@@ -197,7 +208,7 @@ function RoomManager() {
       <DetailedView
         table={selectedTable}
         onDelete={handleDeleteTable}
-        onMove={handleMoveTable}
+        onUpdate={handleUpdate}
       />
     </div>
   );

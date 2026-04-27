@@ -11,39 +11,39 @@ saját munkájájaként mutatja be, az fegyelmi vétségnek számít.
 A fegyelmi vétség legsúlyosabb következménye a hallgató elbocsátása az egyetemről.
 
 
--[] A projekt legalább 4 komponensből áll. (Enélkül a beadandót nem fogadjuk el.) (1pt) Tehát léteznek például a következő komponensek:
+-[X] A projekt legalább 4 komponensből áll. (Enélkül a beadandót nem fogadjuk el.) (1pt) Tehát léteznek például a következő komponensek:
   - Terem
   - Asztal
   - Részletes nézet
   - Új asztal hozzáadása
 
--[] Az projektben a komponenseket logikusan, funkciók szerint szétbontva hozta létre, ügyelve a tárgyon elsajátított alapelvekre. (2pt)
+-[X] Az projektben a komponenseket logikusan, funkciók szerint szétbontva hozta létre, ügyelve a tárgyon elsajátított alapelvekre. (2pt)
 
--[] Terem (2pt)
-  -[] Megfeleleően elkülön egy terület, a `terem` az oldal többi részétől, ahova `drag and drop`-pal le tudjuk majd helyezni az asztalokat. (1pt)
-  -[] A terem mérete módosítható. A méret módosítását követően a terem alapállapotba kerül, tehát minden lehelyezett asztal törlődik. (1pt)
+-[X] Terem (2pt)
+  -[X] Megfeleleően elkülön egy terület, a `terem` az oldal többi részétől, ahova `drag and drop`-pal le tudjuk majd helyezni az asztalokat. (1pt)
+  -[X] A terem mérete módosítható. A méret módosítását követően a terem alapállapotba kerül, tehát minden lehelyezett asztal törlődik. (1pt)
 
 -[] Asztalok megjelenítése (7pt)
-  -[] Az asztalok helyesen megjelennek a teremben a pozíciójuknak megfelelően. (2pt)
-  -[] Az asztalokhoz megfelelő szín és méret tartozik a típusuk alapján. (1pt)
-  -[] Az asztalok vizuálisan megkülönböztethetők kategóriájuk alapján. (1pt)
+  -[X] Az asztalok helyesen megjelennek a teremben a pozíciójuknak megfelelően. (2pt)
+  -[X] Az asztalokhoz megfelelő szín és méret tartozik a típusuk alapján. (1pt)
+  -[X] Az asztalok vizuálisan megkülönböztethetők kategóriájuk alapján. (1pt)
   -[] Az asztalok színe az állapotuktól függően változik, minél rosszabb az állapot, annál fakóbb a szín. (1pt)
   -[] Ha a már lehelyezett asztalok helyigénye sérül, akkor ezt vizuálisan jelöljük. (1pt)
   -[] Megjelenik egy kijelző a lehelyezett asztalok számáról, illetve típusonként az átlagos állapotukról. (1pt)
 
 -[] Asztal részletei (9pt)
   -[] Az asztalra kattintva kiválaszthatjuk azt, a kiválasztott asztalt vizuálisan megkülönböztetjük a többitől. (1pt)
-  -[] Egyszerre csak egy kiválasztott asztal lehet. (1pt)
-  -[] Megfelelően megjelennek a kiválasztott asztal adatai (típus, kategória, szín, állapot, pozíció). (1pt)
-  -[] Lehetőségünk van az asztal törlésére. (1pt)
+  -[X] Egyszerre csak egy kiválasztott asztal lehet. (1pt)
+  -[X] Megfelelően megjelennek a kiválasztott asztal adatai (típus, kategória, szín, állapot, pozíció). (1pt)
+  -[X] Lehetőségünk van az asztal törlésére. (1pt)
   -[] Lehetőségünk van az asztal állapotának módosítására, ekkora megfelelően frissül a szín és az átlagos állapot is. (2pt)
-  -[] Lehetőségünk van az asztal helyének megváltoztatására. Ez grafikus módon történik, tehát a kiválasztott asztalt a kívánt helyre húzzuk, majd ott lehelyezzük (`drag and drop`), figyelve a helyigényt. (2pt)
-  -[] Ha az asztal `is-locked` értéke `true`, az asztal helye nem változtatható. (1pt)
+  -[X] Lehetőségünk van az asztal helyének megváltoztatására. Ez grafikus módon történik, tehát a kiválasztott asztalt a kívánt helyre húzzuk, majd ott lehelyezzük (`drag and drop`), figyelve a helyigényt. (2pt)
+  -[X] Ha az asztal `is-locked` értéke `true`, az asztal helye nem változtatható. (1pt)
 
 -[] Új asztal hozzáadása (6pt)
-  -[] Lehetőség van új asztal hozzáadására, ekkor megjelenik a megfelelő űrlap. (1pt)
+  -[X] Lehetőség van új asztal hozzáadására, ekkor megjelenik a megfelelő űrlap. (1pt)
   -[] Az adatok helyes megadását követően (típus, kategória, szín, állapot) le tudjuk helyezni az új asztalt a teremben. (1pt)
-  -[] A lehelyezés megfelelően működik: asztalok nem helyezhetők egymásra, a kijelölt terület határain kívülre, illetve betartjuk a helyigényt. (2pt)
+  -[X] A lehelyezés megfelelően működik: asztalok nem helyezhetők egymásra, a kijelölt terület határain kívülre, illetve betartjuk a helyigényt. (2pt)
   -[] Ha lehelyezést követően valamelyik asztal helyigénye sérül, akkor azt vizuális jelezzük. (1pt)
   -[] Az asztal lehelyezését követően a kijelző megfelelően változik (asztalok száma, átlagos állapota). (1pt)
 
