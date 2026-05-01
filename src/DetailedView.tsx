@@ -1,6 +1,18 @@
 import { useState } from "react";
 import type {Table} from "./RoomManager";
 
+const TYPE_LABELS = {
+  snooker: "Biliárd / Snooker",
+  foosball: "Csocsó",
+  airhockey: "Léghoki",
+} as const;
+
+const CATEGORY_LABELS = {
+  race: "Verseny",
+  normal: "Normál",
+  kids: "Gyerek",
+} as const;
+
 type Props={
   table: Table | null;
   onDelete: (id:number) => void;
@@ -11,6 +23,7 @@ function DetailedView({table, onDelete, onUpdate}: Props){
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(0);
   const [isLocked, setLocked] = useState(false);
+  const [name, setNewName] = useState("");
 
     if (!table) return <p>Nincs kiválasztva</p>;
 
@@ -20,6 +33,7 @@ function DetailedView({table, onDelete, onUpdate}: Props){
       setEditMode(true);
       setStatus(selectedTable.status);
       setLocked(selectedTable.isLocked);
+      setNewName(selectedTable.name);
     }
 
     function saveEdit(){
@@ -27,6 +41,7 @@ function DetailedView({table, onDelete, onUpdate}: Props){
         ...selectedTable,
         status,
         isLocked,
+        name,
       });
       setEditMode(false);
     }
@@ -37,10 +52,11 @@ function DetailedView({table, onDelete, onUpdate}: Props){
 
       {!editMode ? (
         <>
-          <p>Típus: {selectedTable.type}</p>
+          <p>Név: {selectedTable.name}</p>
+          <p>Típus: {TYPE_LABELS[selectedTable.type]}</p>
           <p>Pozíció: {selectedTable.x}, {selectedTable.y}</p>
           <p>Állapot: {selectedTable.status}</p>
-          <p>Kategória: {selectedTable.category}</p>
+          <p>Kategória: {CATEGORY_LABELS[selectedTable.category]}</p>
           <p>Zárolt: {selectedTable.isLocked ? "Igen" : "Nem"}</p>
 
           <button onClick={startEdit}>Szerkesztés</button>
@@ -49,9 +65,20 @@ function DetailedView({table, onDelete, onUpdate}: Props){
       ) : (
         <>
           <div>
+
+          <label>
+            Asztal neve:
+          <input
+          type="string" 
+          value={name} 
+          onChange={(e) => setNewName(e.target.value)}></input>
+          </label>
+
             <label>Állapot:</label>
             <input
               type="number"
+              min={1}
+              max={10}
               value={status}
               onChange={(e) => setStatus(Number(e.target.value))}
             />

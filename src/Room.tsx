@@ -8,6 +8,7 @@ type RoomProps = {
   tables: Table[];
   onSelect: (table: Table) => void;
   onMove: (id: number, newX: number, newY: number) => void;
+  selectedTable: Table | null;
 };
 
 type DragState = {
@@ -18,7 +19,7 @@ type DragState = {
   newY: number;
 };
 
-function Room({ width, height, tables, onSelect, onMove }: RoomProps) {
+function Room({ width, height, tables, onSelect, onMove, selectedTable }: RoomProps) {
   const roomRef = useRef<HTMLDivElement | null>(null);
   const [dragging, setDragging] = useState<DragState | null>(null);
 
@@ -96,6 +97,7 @@ function Room({ width, height, tables, onSelect, onMove }: RoomProps) {
         <TableView
           key={table.id}
           table={table}
+          isSelected={selectedTable?.id === table.id}
           onClick={() => onSelect(table)}
           onMouseDown={(event) => handleMouseDown(event, table)}
         />

@@ -2,16 +2,19 @@ import { useState } from "react";
 import type { Table, TableType, Categories } from "./RoomManager";
 
 type NewTableProps = {
+  width: number;
+  height:number;
   onAdd: (table: Table) => void;
 };
 
-function NewTable({ onAdd }: NewTableProps) {
+function NewTable({width, height, onAdd }: NewTableProps) {
   const [type, setType] = useState<TableType>("snooker");
   const [category, setCategory] = useState<Categories>("normal");
   const [color, setColor] = useState("red");
   const [status, setStatus] = useState(5);
   const [x, setX] = useState(60);
   const [y, setY] = useState(60);
+  const [name, setName] = useState("");
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -26,12 +29,31 @@ function NewTable({ onAdd }: NewTableProps) {
       status,
       isLocked: false,
       isInvalid: false,
+      name,
     });
+
+  setName("");
+  setType("snooker");
+  setCategory("normal");
+  setColor("red");
+  setStatus(5);
+  setX(60);
+  setY(60);
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Új asztal hozzáadása</h2>
+
+      <label>
+        Asztal neve:
+        <input
+        type="string" 
+        value={name} 
+        onChange={(e) => setName(e.target.value)}
+        required></input>
+      </label>
+
 
       <label>
         Asztal típusa:
@@ -85,6 +107,8 @@ function NewTable({ onAdd }: NewTableProps) {
         <input
           type="number"
           value={x}
+          min={0}
+          max={width}
           onChange={(e) => setX(Number(e.target.value))}
         />
       </label>
@@ -94,6 +118,8 @@ function NewTable({ onAdd }: NewTableProps) {
         <input
           type="number"
           value={y}
+          min={0}
+          max={height}
           onChange={(e) => setY(Number(e.target.value))}
         />
       </label>

@@ -3,6 +3,7 @@ import Room from "./Room";
 import DetailedView from "./DetailedView";
 import NewTable from "./NewTable";
 import { TABLE_TYPES } from "./typeHelper/tableTypes";
+import Summary from "./Summary";
 
 export type TableType = "snooker" | "airhockey" | "foosball";
 
@@ -18,6 +19,7 @@ export type Table = {
   isLocked: boolean;
   isInvalid: boolean;
   category: Categories;
+  name: string;
 };
 
 type Rectangle = {
@@ -64,24 +66,6 @@ function RoomManager() {
     );
   }
 
-  function canPlaceTable(newTable: Table, otherTables: Table[]): boolean {
-    const requiredArea = getRequiredArea(newTable);
-
-    const fitsInRoom =
-      requiredArea.left >= 0 &&
-      requiredArea.top >= 0 &&
-      requiredArea.right <= roomWidth &&
-      requiredArea.bottom <= roomHeight;
-
-    if (!fitsInRoom) {
-      return false;
-    }
-
-    return !otherTables.some((table) =>
-      rectanglesOverlap(requiredArea, getTableArea(table))
-    );
-  }
-
   function markInvalidTables(updatedTables: Table[]): Table[] {
     return updatedTables.map((table) => {
       const requiredArea = getRequiredArea(table);
@@ -101,14 +85,12 @@ function RoomManager() {
     });
   }
 
-  function handleAddTable(newTable: Table) {
-    if (!canPlaceTable(newTable, tables)) {
-      alert("Az asztal ide nem helyezhető le!");
-      return;
-    }
+function handleAddTable(newTable: Table) {
+  const updatedTables = [...tables, newTable];
+  const checkedTables = markInvalidTables(updatedTables);
 
-    setTables(markInvalidTables([...tables, newTable]));
-  }
+  setTables(checkedTables);
+}
 
   function handleDeleteTable(id: number) {
     const updatedTables = tables.filter((table) => table.id !== id);
@@ -131,13 +113,6 @@ function RoomManager() {
       x: newX,
       y: newY,
     };
-
-    const otherTables = tables.filter((table) => table.id !== id);
-
-    if (!canPlaceTable(movedTable, otherTables)) {
-      alert("Az asztal ide nem mozgatható!");
-      return;
-    }
 
     const updatedTables = tables.map((table) =>
       table.id === id ? movedTable : table
@@ -167,14 +142,31 @@ function RoomManager() {
 
     setTables(markInvalidTables(updatedTables));
     setSelectedTable(tableToUpdate);
-
   }
 
-  return (
-    <div>
+return (
+  <div className="app">
+    <header className="header">
       <h1>Teremkezelő</h1>
+    </header>
 
-      <section>
+    <section className="top-summary card">
+      <Summary tables={tables} />
+    </section>
+
+    <main className="canvas-wrapper">
+      <Room
+        width={roomWidth}
+        height={roomHeight}
+        tables={tables}
+        onSelect={setSelectedTable}
+        onMove={handleMoveTable}
+        selectedTable={selectedTable}
+      />
+    </main>
+
+    <section className="bottom-panel">
+      <div className="card">
         <h2>Terem mérete</h2>
 
         <label>
@@ -194,24 +186,25 @@ function RoomManager() {
             onChange={(e) => handleRoomHeightChange(Number(e.target.value))}
           />
         </label>
-      </section>
+      </div>
 
-      <NewTable onAdd={handleAddTable} />
-<Room
-  width={roomWidth}
-  height={roomHeight}
-  tables={tables}
-  onSelect={setSelectedTable}
-  onMove={handleMoveTable}
-/>
+      <div className="card">
+        <NewTable
+         width={roomWidth}
+        height={roomHeight} 
+        onAdd={handleAddTable}/>
+      </div>
 
-      <DetailedView
-        table={selectedTable}
-        onDelete={handleDeleteTable}
-        onUpdate={handleUpdate}
-      />
-    </div>
-  );
+      <div className="card">
+        <DetailedView
+          table={selectedTable}
+          onDelete={handleDeleteTable}
+          onUpdate={handleUpdate}
+        />
+      </div>
+    </section>
+  </div>
+);
 }
 
 export default RoomManager;

@@ -6,14 +6,15 @@ type TableViewProps = {
   table: Table;
   onClick: () => void;
   onMouseDown: (event: React.MouseEvent<HTMLDivElement>) => void;
+  isSelected: boolean;
 };
 
-function TableView({ table, onClick, onMouseDown }: TableViewProps) {
+function TableView({ table, onClick, onMouseDown, isSelected }: TableViewProps) {
   const data = TABLE_TYPES[table.type];
   const category = TABLE_CATEGORIES[table.category];
 
-  const borderWidth = table.isInvalid ? 3 : category.border;
-  const borderColor = table.isInvalid ? "red" : "black";
+  const borderWidth = table.isInvalid ? 3 : isSelected ? 4 : category.border;
+  const borderColor = table.isInvalid ? "red" : isSelected ? "purple" : "black";
 
   const background =
     category.pattern === "dots"
@@ -38,9 +39,10 @@ function TableView({ table, onClick, onMouseDown }: TableViewProps) {
         justifyContent: "center",
         cursor: table.isLocked ? "not-allowed" : "grab",
         userSelect: "none",
+        opacity: 0.4 + table.status * 0.06,
       }}
     >
-      {table.type}
+      {table.name}
     </div>
   );
 }
